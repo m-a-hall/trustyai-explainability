@@ -75,7 +75,8 @@ public class NumericFeatureDistribution implements FeatureDistribution {
     @Override
     public List<Value> getAllSamples() {
         List<Value> values = new ArrayList<>(doubles);
-        Collections.shuffle(values);
+        Collections.shuffle(values, random);
+        // Collections.shuffle(values);
         return Collections.unmodifiableList(values);
     }
 

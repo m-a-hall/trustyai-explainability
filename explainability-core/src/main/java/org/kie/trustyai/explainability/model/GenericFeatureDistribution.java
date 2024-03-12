@@ -68,7 +68,8 @@ public class GenericFeatureDistribution implements FeatureDistribution {
     @Override
     public List<Value> getAllSamples() {
         List<Value> copy = new java.util.ArrayList<>(values);
-        Collections.shuffle(copy);
+        Collections.shuffle(copy, random);
+        // Collections.shuffle(copy);
         return copy;
     }
 

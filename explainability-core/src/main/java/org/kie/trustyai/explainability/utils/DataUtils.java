@@ -634,6 +634,8 @@ public class DataUtils {
             PerturbationContext perturbationContext,
             int featureDistributionSize, int draws,
             int sampleSize, Map<String, HighScoreNumericFeatureZones> numericFeatureZonesMap) {
+        Random r = dataDistribution instanceof PredictionInputsDataDistribution ? ((PredictionInputsDataDistribution) dataDistribution).getRandom()
+                : null;
         Map<String, FeatureDistribution> featureDistributions = new HashMap<>();
         for (FeatureDistribution featureDistribution : dataDistribution.asFeatureDistributions()) {
             Feature feature = featureDistribution.getFeature();
@@ -678,7 +680,7 @@ public class DataUtils {
                 } else {
                     finaldata = boundedData;
                 }
-                NumericFeatureDistribution numericFeatureDistribution = new NumericFeatureDistribution(feature, finaldata);
+                NumericFeatureDistribution numericFeatureDistribution = r == null ? new NumericFeatureDistribution(feature, finaldata) : new NumericFeatureDistribution(feature, finaldata, r);
                 featureDistributions.put(feature.getName(), numericFeatureDistribution);
             }
         }

@@ -62,7 +62,7 @@ public class PredictionInputsDataDistribution implements DataDistribution {
     @Override
     public List<PredictionInput> getAllSamples() {
         List<PredictionInput> copy = new ArrayList<>(inputs);
-        Collections.shuffle(copy);
+        Collections.shuffle(copy, random);
         return copy;
     }
 
@@ -87,7 +87,7 @@ public class PredictionInputsDataDistribution implements DataDistribution {
                     }
                 }
                 Feature feature = FeatureFactory.copyOf(firstInputIthfeature, new Value(null));
-                featureDistributions.add(new GenericFeatureDistribution(feature, values));
+                featureDistributions.add(new GenericFeatureDistribution(feature, values, random));
             }
             return featureDistributions;
         }
@@ -96,6 +96,10 @@ public class PredictionInputsDataDistribution implements DataDistribution {
     @Override
     public boolean isEmpty() {
         return this.inputs.isEmpty();
+    }
+
+    public Random getRandom() {
+        return random;
     }
 
     @Override
